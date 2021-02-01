@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
     public float speed = 0;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private int count;
     private float movementX;
     private float movementY;
+    public AudioSource audioData;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +39,11 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
       countText.text = "Count: " + count.ToString();
-      if(count >= 12)
+        if (count > 0)
+        {
+            audioData.Play(0);
+        }
+        if (count >= 12)
       {
         winTextObject.SetActive(true);
       }
@@ -54,6 +60,7 @@ public class PlayerController : MonoBehaviour
     {
       if(other.gameObject.CompareTag("PickUp"))
       {
+
           other.gameObject.SetActive(false);
 
           count = count + 1;
